@@ -1,0 +1,34 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/PC.hdl
+
+/**
+ * A 16-bit counter with load and reset control bits.
+ * if      (reset[t] == 1) out[t+1] = 0
+ * else if (load[t] == 1)  out[t+1] = in[t]
+ * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
+ * else                    out[t+1] = out[t]
+ */
+
+CHIP PC {
+    IN in[16],load,inc,reset;
+    OUT out[16];
+
+    PARTS:
+    Register(in=countIn, load=true, out=out, out=countOut);
+    Not(in=load, out=notLoad);
+    Not(in=reset, out=notReset);
+    Or(a=load, b=reset, out=zx);
+    Or(a=notLoad, b=reset, out=zy);
+		// only increment if we are not loading or resetting
+    And(a=inc, b=notLoad, out=incc);
+    And(a=incc, b=notReset, out=doInc);
+		/**
+		 * The base ALU here takes an input of the old count and the input of this chip, and adds
+		 * them together. If reset is true, it zeros both of them, to zero the output. Otherwise, if load is true,
+		 * the old count is zeroed, and otherwise the input is zeroed. Lastly, if doInc is true, it activates
+		 * nx,ny,no, which increments the output by 1.
+		 */
+    ALU(x=countOut, y=in, zy=zy, zx=zx, f=true, ny=doInc, nx=doInc, no=doInc, out=countIn);
+}
