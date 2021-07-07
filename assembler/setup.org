@@ -1,0 +1,61 @@
+#+TITLE: Nand2Tetris Assembler Planning
+
+* Specifications
+** Input of .hack
+*** A instruction
+**** format
+@value
+**** binary
+0vvv vvvv vvvv vvvv
+*** C instruction
+**** format
+***** dest=comp;jump
+***** comp;jump
+***** dest=comp
+***** parts
+****** comp
+**** binary
+111a c1c2c3c4 c5c6d1d2 d3j1j2j3
+*** regex
+#+BEGIN_SRC perl
+(?:(@((?:[0-9]+)|(?:[A-Z_.$:][A-Z_.$:0-9]*)))|((?:((?:null)|(?:A?M?D?))=)?([01DAM\-+&|!]+)(?:;((?:null)|(?:JGT)|(?:JEQ)|(?:JGE)|(?:JLT)|(?:JNE)|(?:JLE)|(?:JMP)))?))|(?:\(([A-Z_.$:][A-Z_.$:0-9]*)\))|(?:\/\/.*)
+#+END_SRC
+Broken down:
+#+BEGIN_SRC perl
+(?: # A_COMMAND or L_COMMAND (I think we can remove this)
+ # there are two matches (1 and 2) here for A_COMMAND, we should be able
+ # to remove the outer one
+ (@((?:[0-9]+)|(?:[A-Z_.$:][A-Z_.$:0-9]*))) # A_COMMAND
+ |
+ ( # C_COMMAND
+	 (?:((?:null)|(?:A?M?D?))=)? # optional dest
+	 ([01DAM\-+&|!]+) # mandatory op
+	 (?:;((?:null)|(?:JGT)|(?:JEQ)|(?:JGE)|(?:JLT)|(?:JNE)|(?:JLE)|(?:JMP)))? # optional jmp
+ ) # C_COMMAND END
+)# any command END
+|
+(?:\(([A-Z_.$:][A-Z_.$:0-9]*)\)) # L_COMMAND
+|
+(?:\/\/.*) # comment
+#+END_SRC
+
+**** capturing groups
+***** 1
+>@asdb<
+***** 2
+@>asdb<
+***** 3
+>D=1;JMP<
+***** 4
+>D<=1;JMP
+***** 5
+D=>1<;JMP
+***** 6
+D=1;>JMP<
+***** 7
+(>LOOP<)
+**** external requirements
+These are requirements outside of the regex, because I don't know how to implement them in the regex
+***** C_COMMAND must have either dest or jump (having both is fine too I think)
+***** C_COMMAND dest must not be empty
+** Output of .asm
