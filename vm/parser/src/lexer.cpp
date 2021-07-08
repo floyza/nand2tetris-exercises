@@ -48,7 +48,8 @@ void Lexer::advance() {
 		do {
 			keyword += c;
 			c = is.get();
-		} while (is && std::isalpha(c));
+		} while (is && !std::isspace(c));
+		is.putback(c);
 		std::transform(keyword.begin(), keyword.end(), keyword.begin(),
 				[](unsigned char c){ return std::tolower(c); });
 
@@ -77,7 +78,7 @@ void Lexer::advance() {
 		else if (keyword == "sub")
 			next = { Token::Sub };
 		else
-			throw std::runtime_error { std::string{"Lexer: invalid keyword: "} + keyword };
+			throw std::runtime_error { std::string{"Lexer: invalid keyword: '"} + keyword + "'" };
 		return;
 	}
 	throw std::runtime_error { std::string{"Lexer: invalid input: "} + c };
