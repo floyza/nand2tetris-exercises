@@ -1,11 +1,19 @@
 #pragma once
 
+#include "lexer/lexer.hpp"
+
+namespace Parser {
+
 class Parser {
 public:
-	Parser(std::istream &is);
+	Parser(Lexer::Lexer &lexer);
 
-	bool has_more_instructions() const;
-	void advance();
+	void expr();
 private:
-	std::istream &is;
+	bool accept(Lexer::Token);
+	void expect(Lexer::Token);
+	void dest();
+	Lexer::Lexer &lexer;
 };
+
+}
