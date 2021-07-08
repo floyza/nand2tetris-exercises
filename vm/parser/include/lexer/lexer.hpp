@@ -2,7 +2,7 @@
 
 #include <istream>
 
-namespace Parser {
+namespace Lexer {
 
 enum class Token { Push, Pop,
 	           Local, Argument, This, That, Constant, Static, Pointer, Temp,
@@ -28,5 +28,7 @@ private:
 	Instruction curr;
 	Instruction next;
 };
+
+std::string show_instruction(Instruction);
 
 }
