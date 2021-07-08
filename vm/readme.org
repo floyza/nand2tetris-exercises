@@ -1,0 +1,4 @@
+Steps for vm:
+* Parse commands into internal representation
+* 'execute' commands
+  These translate into either hack assembly code, or run directly
