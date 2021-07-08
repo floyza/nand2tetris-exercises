@@ -1,4 +1,7 @@
-add_library (Parser lexer.cpp)
+project (parser)
 
-target_include_directories (Parser PUBLIC ${CMAKE_CURRENT_LIST_DIR}/)
+add_library (${PROJECT_NAME} src/lexer.cpp)
 
+target_include_directories (${PROJECT_NAME}
+  PUBLIC ${PROJECT_SOURCE_DIR}/include
+)

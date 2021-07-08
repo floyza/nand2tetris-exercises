@@ -1,4 +1,4 @@
-#include "lexer.hpp"
+#include "parser/lexer.hpp"
 #include <istream>
 
 namespace Parser {

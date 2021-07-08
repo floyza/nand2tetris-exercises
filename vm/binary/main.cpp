@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lexer.hpp"
+#include "parser/lexer.hpp"
 
 using namespace Parser;
 
