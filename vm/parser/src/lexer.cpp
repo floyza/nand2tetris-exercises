@@ -108,7 +108,7 @@ std::string show_instruction(Instruction i) {
         	DISP(Token::None);
 #undef DISP
 	case Token::Int:
-		return std::string{"Int: ("} + std::to_string(i.val) + ")";
+		return std::string{"Token::Int: ("} + std::to_string(i.val) + ")";
 	default:
 		return "Unknown Token";
 	}
