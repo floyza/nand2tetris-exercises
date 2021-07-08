@@ -23,12 +23,16 @@ void Lexer::advance() {
 	char c;
 
 	// get rid of whitespace
-	do { c = is.get(); } while (is && isspace(c));
+	do { c = is.get(); } while (is && (c == '\t' || c == ' '));
 	is.putback(c);
 
 	// get next token
 	if (!is) return;
 	c = is.get();
+	if (c == '\n') {
+		next = {Token::EOL};
+		return;
+	}
 	if (std::isdigit(c)) { // check for number
 		std::string num;
 		do {
@@ -99,6 +103,7 @@ std::string show_instruction(Instruction i) {
 		DISP(Token::Temp);
         	DISP(Token::Add);
 		DISP(Token::Sub);
+		DISP(Token::EOL);
         	DISP(Token::None);
 #undef DISP
 	case Token::Int:

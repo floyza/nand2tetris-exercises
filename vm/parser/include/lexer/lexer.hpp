@@ -8,6 +8,7 @@ enum class Token { Push, Pop,
 	           Local, Argument, This, That, Constant, Static, Pointer, Temp,
                    Int,
                    Add, Sub,
+		   EOL,
                    None };
 
 struct Instruction {
