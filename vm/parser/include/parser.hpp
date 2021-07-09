@@ -6,14 +6,15 @@ namespace Parser {
 
 class Parser {
 public:
-	Parser(Lexer &lexer);
+  Parser(Lexer &lexer);
 
-	void expr();
+  void expr();
+
 private:
-	bool accept(Token);
-	void expect(Token);
-	void dest();
-	Lexer &lexer;
+  bool accept(Token);
+  void expect(Token);
+  void dest();
+  Lexer &lexer;
 };
 
-}
+} // namespace Parser
