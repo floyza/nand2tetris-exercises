@@ -3,7 +3,7 @@
 #include "parser.hpp"
 
 int main(int argc, char **argv) {
-	Lexer::Lexer lex { std::cin };
+	Parser::Lexer lex { std::cin };
 	Parser::Parser parser { lex };
 
 	parser.expr();

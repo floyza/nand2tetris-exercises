@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <string>
 
-namespace Lexer {
+namespace Parser {
 
 Lexer::Lexer(std::istream &is)
   : is(is)

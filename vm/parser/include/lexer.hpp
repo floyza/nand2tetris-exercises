@@ -2,7 +2,7 @@
 
 #include <istream>
 
-namespace Lexer {
+namespace Parser {
 
 enum class Token { Push, Pop,
 	           Local, Argument, This, That, Constant, Static, Pointer, Temp,

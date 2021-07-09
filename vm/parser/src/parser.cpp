@@ -1,11 +1,9 @@
 #include "parser.hpp"
 
-using Lexer::Instruction;
-using Lexer::Token;
 
 namespace Parser {
 
-Parser::Parser(Lexer::Lexer &lexer)
+Parser::Parser(Lexer &lexer)
   : lexer{lexer}
 {
 }
