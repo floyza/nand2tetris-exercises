@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lexer/lexer.hpp"
+#include "lexer.hpp"
 
 namespace Parser {
 

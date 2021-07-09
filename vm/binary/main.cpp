@@ -1,6 +1,6 @@
 #include <iostream>
-#include "lexer/lexer.hpp"
-#include "parser/parser.hpp"
+#include "lexer.hpp"
+#include "parser.hpp"
 
 int main(int argc, char **argv) {
 	Lexer::Lexer lex { std::cin };

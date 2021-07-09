@@ -1,4 +1,4 @@
-#include "parser/parser.hpp"
+#include "parser.hpp"
 
 using Lexer::Instruction;
 using Lexer::Token;
